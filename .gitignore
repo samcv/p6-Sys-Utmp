@@ -17,5 +17,6 @@ src/Makefile
 nytprof.out
 /pm_to_blib
 *.o
+*.so
 *.bs
 /_eumm/
