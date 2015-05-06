@@ -3,7 +3,7 @@ use LibraryMake;
 use NativeCall;
 
 class Sys::Utmp {
-    my class Utent is repr('CStruct') {
+    class Utent is repr('CStruct') {
         has int8 $.type;
         has int32 $.pid;
         has Str $.line;
@@ -37,15 +37,36 @@ class Sys::Utmp {
         die "Unable to find library";
     }
 
-    sub _p_getutent() returns Utent is native(&library) { * }
     sub _p_setutent() is native(&library) { * }
+
+    method setutent() {
+        _p_setutent();
+    }
+
     sub _p_endutent() is native(&library) { * }
+
+    method endutent() {
+        _p_endutent()
+    }
+
     sub _p_utmpname(Str) is native(&library) { * }
+
+    method utpname(Str $utname ) {
+        my $n = $utname;
+        explicitly-manage($n);
+        _p_utmpname($n);
+    }
+
+    sub _p_getutent() returns Utent is native(&library) { * }
+
+    method getutent() returns Utent {
+        _p_getutent();
+    }
 
     method list() {
         gather {
             loop {
-                if _p_getutent() -> $utent {
+                if self.getutent -> $utent {
                     take $utent;
                 }
                 else {
