@@ -3,7 +3,7 @@ use LibraryMake;
 use NativeCall;
 
 class Sys::Utmp {
-    class Utent is repr('CStruct') {
+    my class Utent is repr('CStruct') {
         has int8 $.type;
         has int32 $.pid;
         has Str $.line;
@@ -45,7 +45,6 @@ class Sys::Utmp {
     method list() {
         gather {
             loop {
-                say "ff";
                 if _p_getutent() -> $utent {
                     take $utent;
                 }
