@@ -197,7 +197,7 @@ extern void _p_endutent(void)
     endutent();
 }
 
-extern void _p_utmpname(char * filename)
+extern void _p_utmpname(const char * filename)
 {
      utmpname(filename);
 }
