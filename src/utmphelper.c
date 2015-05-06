@@ -114,8 +114,8 @@ struct utmp *getutent(void)
 #endif
 
 struct _p_utmp {
-	short	ut_type;
-	pid_t ut_pid;
+	int	ut_type;
+	int ut_pid;
 	char *ut_line;
 	char *ut_id;
 	char *ut_user;
@@ -201,3 +201,14 @@ extern void _p_utmpname(char * filename)
 {
      utmpname(filename);
 }
+
+/*
+#include <stdio.h>
+
+int main() {
+	struct _p_utmp *f;
+   while (!(NULL == (f = _p_getutent()) )) {
+   printf("%s\n%s\n%s\n%s\n", f->ut_line, f->ut_user, f->ut_id, f->ut_host);
+	}
+}
+*/
