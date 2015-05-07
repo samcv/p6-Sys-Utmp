@@ -3,6 +3,9 @@ use LibraryMake;
 use NativeCall;
 
 class Sys::Utmp {
+
+    enum UtmpType is export <Empty RunLevel BootTime NewTime OldTime InitProcess LoginProcess UserProcess DeadProcess Accounting>;
+
     class Utent is repr('CStruct') {
         has int8 $.type;
         has int32 $.pid;
@@ -11,6 +14,18 @@ class Sys::Utmp {
         has Str $.user;
         has Str $.host;
         has int $.tv;
+
+        method timestamp() {
+            DateTime.new($.tv // 0 );
+        }
+
+        method Numeric() {
+            $!type;
+        }
+
+        multi method ACCEPTS(Utent:D: UtmpType $type) {
+            $!type == $type;
+        }
     }
 
     sub library {
