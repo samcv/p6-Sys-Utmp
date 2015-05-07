@@ -7,5 +7,5 @@ use Sys::Utmp;
 my $u = Sys::Utmp.new;
 
 for $u.list.grep(UserProcess) -> $ent {
-      say $ent.user , "\t", $ent.line, "\t", $ent.timestamp;
+      say $ent;
 }
