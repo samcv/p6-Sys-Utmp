@@ -4,6 +4,17 @@ Perl 6 access to Utmp entries on Unix-like systems.
 
 ## Description
 
+Sys::Utmp provides access to the Unix user accounting data that may be
+described in the C<utmp(5)> manpage.  Briefly it records each logged in
+user (and some other data regarding the OS lifetime.)
+
+It will prefer to use the C<getutent()> function from the system C library
+if it is available but will attempt to provide its own if the OS doesn't
+have that. Because the implementation of C<getutent()> differs between
+various OS and the C part of this module needs to provide a consistent
+interface to Perl it may not represent all the data that is available on
+a particular system, similarly there may be documented attributes that
+are not captured on some OS.
 
 ## Installation
 
