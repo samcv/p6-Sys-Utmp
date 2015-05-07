@@ -19,6 +19,10 @@ class Sys::Utmp {
             DateTime.new($.tv // 0 );
         }
 
+        method gist() {
+            $!user ~ "\t" ~ $!line ~ "\t" ~ $.timestamp;
+        }
+
         method Numeric() {
             $!type;
         }
