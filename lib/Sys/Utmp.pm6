@@ -111,7 +111,7 @@ The enum C<UtmpType> defines the constants as:
 
 =item DeadProcess - The process that created this record has terminated.
 
-=item Empty  - record probably contains no other useful information.
+=item EmptyRecord  - record probably contains no other useful information.
 
 =item InitProcess - this is a record for process created by init.
 
@@ -146,7 +146,7 @@ This returns a L<DateTime> that corresponds to C<tv>
 
 class Sys::Utmp {
 
-    enum UtmpType is export <Empty RunLevel BootTime NewTime OldTime InitProcess LoginProcess UserProcess DeadProcess Accounting>;
+    enum UtmpType is export <EmptyRecord RunLevel BootTime NewTime OldTime InitProcess LoginProcess UserProcess DeadProcess Accounting>;
 
     class Utent is repr('CStruct') {
         has int8 $.type;
