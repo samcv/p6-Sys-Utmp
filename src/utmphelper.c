@@ -1,9 +1,22 @@
-
+#include <stdint.h>
 #include <utmp.h>
 #include <string.h>
 
+#ifdef __FreeBSD_cc_version
+#define BSD 1
+#define NOUTFUNCS 1
+#endif
+
 #ifdef _AIX
 #define _HAVE_UT_HOST	1
+#endif
+
+#ifdef BSD
+#define _NO_UT_ID
+#define _NO_UT_TYPE
+#define _NO_UT_PID
+#define _HAVE_UT_HOST
+#define ut_user ut_name
 #endif
 
 #ifdef NOUTFUNCS
@@ -16,14 +29,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+extern struct utmp *getutent(void) ;
 
-#ifdef BSD
-#define _NO_UT_ID
-#define _NO_UT_TYPE
-#define _NO_UT_PID
-#define _HAVE_UT_HOST
-#define ut_user ut_name
-#endif
 
 /*
    define these so it still works as documented :)
@@ -55,25 +62,26 @@ static int ut_fd = -1;
 
 static char _ut_name[] = _PATH_UTMP;
 
-void utmpname(char *filename)
+extern void utmpname(const char *filename)
 {
    strcpy(_ut_name, filename);
 }
 
-void setutent(void)
+extern void setutent(void)
 {
     if (ut_fd < 0)
     {
        if ((ut_fd = open(_ut_name, O_RDONLY)) < 0) 
        {
-            croak("Can't open %s",_ut_name);
+            printf("Can't open %s",_ut_name);
+            exit(0);
         }
     }
 
     lseek(ut_fd, (off_t) 0, SEEK_SET);
 }
 
-void endutent(void)
+extern void endutent(void)
 {
     if (ut_fd > 0)
     {
@@ -101,11 +109,13 @@ struct utmp *getutent(void)
         }
         else if (readval < 0) 
         {
-            croak("Error reading %s", _ut_name);
+            printf("Error reading %s", _ut_name);
+            exit(0);
         } 
         else 
         {
-            croak("Partial record in %s [%d bytes]", _ut_name, readval );
+            printf("Partial record in %s [%d bytes]", _ut_name, readval );
+            exit(0);
         }
     }
     return &s_utmp;
