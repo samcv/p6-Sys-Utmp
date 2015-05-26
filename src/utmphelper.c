@@ -1,11 +1,18 @@
+#if __FreeBSD__ >= 10
+#include <utmpx.h>
+#define USEXFUNCS 1
+#define _HAVE_UT_TV 1
+#else
 #include <stdint.h>
 #include <utmp.h>
-#include <string.h>
 
 #ifdef __FreeBSD_cc_version
 #define BSD 1
 #define NOUTFUNCS 1
 #endif
+#endif
+
+#include <string.h>
 
 #ifdef _AIX
 #define _HAVE_UT_HOST	1
@@ -137,11 +144,18 @@ struct _p_utmp {
 extern struct _p_utmp *_p_getutent(void)
 {
      static char *_ut_id;
+#ifdef USEXFUNCS
+     static struct utmpx *utent;
+#else
      static struct utmp *utent;
-	  static struct _p_utmp fixed_utent;
+#endif
+     static struct _p_utmp fixed_utent;
 
-
+#ifdef USEXFUNCS
+     utent = getutxent();
+#else
      utent = getutent();
+#endif
 
      if ( utent )
      {
@@ -199,17 +213,29 @@ extern struct _p_utmp *_p_getutent(void)
 
 extern void _p_setutent(void)
 {
+#ifdef USEXFUNCS
+    setutxent();
+#else
     setutent();
+#endif
 }
 
 extern void _p_endutent(void)
 {
+#ifdef USEXFUNCS
+    endutxent();
+#else
     endutent();
+#endif
 }
 
 extern void _p_utmpname(const char * filename)
 {
+#ifdef USEXFUNCS
+     setutxdb(UTXDB_ACTIVE,filename);
+#else
      utmpname(filename);
+#endif
 }
 
 /*
