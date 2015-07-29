@@ -10,7 +10,7 @@
     "LibraryMake"
   ],
   "provides" : {
-    "Sys::Utmp" : "lib/Sys/Utmp.pm6"
+    "Sys::Utmp" : "lib/Sys/Utmp.pm"
   },
   "depends" : [
     "LibraryMake"
