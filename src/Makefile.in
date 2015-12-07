@@ -1,7 +1,7 @@
-all: %DESTDIR%/../resources/lib/utmphelper%SO%
+all: %DESTDIR%/utmphelper%SO%
 
-%DESTDIR%/../resources/lib/utmphelper%SO%: utmphelper%O%
-	%LD% %LDSHARED% %LDFLAGS% %LIBS% %LDOUT%%DESTDIR%/../resources/lib/utmphelper%SO% utmphelper%O%
+%DESTDIR%/utmphelper%SO%: utmphelper%O%
+	%LD% %LDSHARED% %LDFLAGS% %LIBS% %LDOUT%%DESTDIR%/utmphelper%SO% utmphelper%O%
 
 utmphelper%O%: utmphelper.c
 	%CC% -c %CCSHARED% %CCFLAGS% %CCOUT%utmphelper%O% utmphelper.c
