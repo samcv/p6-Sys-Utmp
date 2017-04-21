@@ -1,30 +1,39 @@
 {
-  "name" : "Sys::Utmp",
-  "support" : {
-    "source"     : "git://github.com/jonathanstowe/p6-Sys-Utmp.git",
-    "irc"        : "irc:// irc.freenode.net/#perl6",
-    "bugtracker" : "https://github.com/jonathanstowe/p6-Sys-Utmp/issues"
+  "name": "Sys::Utmp",
+  "support": {
+    "irc": "irc:// irc.freenode.net/#perl6",
+    "source": "https://github.com/samcv/p6-Sys-Utmp",
+    "bugtracker": "https://github.com/samcv/p6-Sys-Utmp/issues"
   },
-  "source-url" : "git://github.com/jonathanstowe/p6-Sys-Utmp.git",
-  "perl" : "6.c",
-  "build-depends" : [
-	"Shell::Command",
+  "source-url": "git://github.com/samcv/p6-Sys-Utmp.git",
+  "perl": "6.c",
+  "build-depends": [
+    "Shell::Command",
     "LibraryMake"
   ],
-  "provides" : {
-    "Sys::Utmp" : "lib/Sys/Utmp.pm"
-  },
-  "resources" : [ "libraries/utmphelper" ],
-  "depends" : [
+  "resources": [
+    "libraries/utmphelper"
+  ],
+  "author": "Jonathan Stowe <jns+git@gellyfish.co.uk>",
+  "auth": "github:samcv",
+  "depends": [
     "LibraryMake"
   ],
-  "test-depends" : [
+  "license": "Artistic-2.0",
+  "provides": {
+    "Sys::Utmp": "lib/Sys/Utmp.pm"
+  },
+  "test-depends": [
     "Test"
   ],
-  "auth" : "github:jonathanstowe",
-  "authors" : [ "Jonathan Stowe <jns+git@gellyfish.co.uk>" ],
-  "author" : "Jonathan Stowe <jns+git@gellyfish.co.uk>",
-  "description" : "Perl 6 access to Utmp entries on Unix-like systems",
-  "tags" : [ "unix", "users", "utility" ],
-  "version" : "0.0.9"
+  "tags": [
+    "unix",
+    "users",
+    "utility"
+  ],
+  "version": "0.0.9",
+  "authors": [
+    "Jonathan Stowe <jns+git@gellyfish.co.uk>"
+  ],
+  "description": "Perl 6 access to Utmp entries on Unix-like systems"
 }
